@@ -1,0 +1,20 @@
+language: node_js
+node_js:
+  - "node"
+
+install:
+    # Setup AWS CLI for deployment
+  - pip install --upgrade --user awscli
+  - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+  - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+
+before_script:
+  - npm install -g gulp-cli
+  - npm install
+
+script:
+  - gulp
+
+env:
+  global:
+secure: EXAMPLE

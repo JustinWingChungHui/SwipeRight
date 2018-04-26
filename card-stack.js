@@ -1,9 +1,6 @@
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    var swiperight = 0;
-    var swipeleft = 1;
-
     // Randomize the cards
     var ul = document.getElementById("cardstack");
     for (var i = ul.children.length; i >= 0; i--) {
@@ -20,19 +17,16 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     stack.on('throwout', function (e) {
-        console.log(e.target.innerText || e.target.textContent, 'has been thrown out of the stack to the', e.throwDirection, 'direction.');
+        //console.log(e.target.innerText || e.target.textContent, 'has been thrown out of the stack to the', e.throwDirection, 'direction.');
 
         e.target.classList.remove('in-deck');
 
-        e.target.children[swipeleft].removeAttribute("style");
-        e.target.children[swiperight].removeAttribute("style");
+        var direction = null;
 
         if(String(e.throwDirection) == 'Symbol(LEFT)') {
-            e.target.children[swipeleft].style.display="block";
-        }
-
-        if(String(e.throwDirection) == 'Symbol(RIGHT)') {
-            e.target.children[swiperight].style.display="block";
+            direction = 'left';
+        } else if(String(e.throwDirection) == 'Symbol(RIGHT)') {
+            direction = 'right';
         }
 
         var cardCount = get_stack_count();
@@ -43,13 +37,41 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     stack.on('throwin', function (e) {
-        console.log(e.target.innerText || e.target.textContent, 'has been thrown into the stack from the', e.throwDirection, 'direction.');
+        //console.log(e.target.innerText || e.target.textContent, 'has been thrown into the stack from the', e.throwDirection, 'direction.');
 
         e.target.children[swipeleft].removeAttribute("style");
         e.target.children[swiperight].removeAttribute("style");
         e.target.classList.add('in-deck');
     });
+
+    stack.on('dragmove', function(e){
+
+        var direction = null;
+        if (e.offset < -20) { 
+            direction = 'left'
+        } else if (e.offset > 20) {
+            direction = 'right'
+        }
+        update_overlay(direction, e.target);
+    });
 });
+
+const swiperight = 0;
+const swipeleft = 1;
+
+function update_overlay(direction, target) {
+    
+    target.children[swipeleft].removeAttribute("style");
+    target.children[swiperight].removeAttribute("style");
+
+    if(direction == 'left') {
+        target.children[swipeleft].style.display="block";
+    }
+
+    if(direction == 'right') {
+        target.children[swiperight].style.display="block";
+    }
+};
 
 function get_stack_count() {
     var count = 0;

@@ -1,13 +1,29 @@
 {
-  "dependencies": {
-    "swing": "^4.0.1"
-  },
-  "devDependencies": {
-    "webpack": "^1.14.0",
-    "webpack-dev-server": "^1.16.2"
-  },
-  "private": true,
+  "name": "SwipeRight",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --entry ./index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JustinWingChungHui/SwipeRight.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JustinWingChungHui/SwipeRight/issues"
+  },
+  "homepage": "https://github.com/JustinWingChungHui/SwipeRight#readme",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-awspublish": "^3.3.0",
+    "gulp-clean-css": "^3.9.2",
+    "gulp-cloudfront-invalidate-aws-publish": "^0.2.3",
+    "gulp-uglify": "^3.0.0",
+    "photoswipe": "^4.1.2",
+    "pump": "^2.0.0",
+    "requirejs": "^2.3.5"
   }
 }
