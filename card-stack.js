@@ -53,6 +53,21 @@ var switchblade = [
     'images/switchblade_card3.jpg'
 ];
 
+
+// Do we need to route iOS audio through touch events?
+// https://stackoverflow.com/questions/12517000/no-sound-on-ios-6-web-audio-api#12569290
+var sound_on_iOS_enabled = false;
+var iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+document.addEventListener("touchend", function(){
+    if (!sound_on_iOS_enabled && iOS) {
+        var audio = new Audio('audio/phonepickup.mp3');
+        audio.play();
+
+        sound_on_iOS_enabled = true;
+    }
+});
+
+
 document.addEventListener('DOMContentLoaded', function () {
 
     randomize_cards()
@@ -68,29 +83,23 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Card thrown out
-    stack.on('throwout', function (e) {
+    stack.on('throwoutleft', function (e) {
         e.target.classList.remove('in-deck');
 
-        var direction = null;
+        var audio = new Audio(get_random_item(swipe_left_audio));
+        audio.play();
 
-        if(String(e.throwDirection) == 'Symbol(LEFT)') {
-            direction = 'left';
+        check_stack_count();
+    });
 
-            var audio = new Audio(get_random_item(swipe_left_audio));
-            audio.play();
+    // Card thrown out
+    stack.on('throwoutright', function (e) {
+        e.target.classList.remove('in-deck');
 
-        } else if(String(e.throwDirection) == 'Symbol(RIGHT)') {
-            direction = 'right';
+        var audio = new Audio(get_random_item(swipe_right_audio));
+        audio.play();
 
-            var audio = new Audio(get_random_item(swipe_right_audio));
-            audio.play();
-        }
-
-        var cardCount = get_stack_count();
-
-        if (cardCount == 0){
-            window.location.href = 'https://deathsexbloodbath.bandcamp.com/';
-        }
+        check_stack_count();
     });
 
     // Card being moved back to centre
@@ -152,16 +161,34 @@ function update_overlay(direction, target) {
     }
 };
 
-// Gets the number of cards on the stack
-function get_stack_count() {
-    var count = 0;
+// Checks the number of cards on the stack
+function check_stack_count() {
+    var stack_count = 0;
+    var left_count = 0;
+    var right_count = 0;
 
     var stack = document.getElementById("cardstack");
     for (var i =0; i < stack.children.length; i++) {
         if (stack.children[i].classList.toString().indexOf('in-deck') !== -1) {
-            count++;
+            stack_count++;
+        }
+
+        if (stack.children[i].children[swiperight].style.display == "block") {
+            right_count++;
+        }
+
+        if (stack.children[i].children[swipeleft].style.display == "block") {
+            left_count++;
         }
     }
 
-    return count;
+    if (stack_count == 0) {
+        if (left_count == 5) {
+            window.location.href = 'https://www.youtube.com/watch?v=1cQh1ccqu8M';
+        } else if (right_count == 5) {
+            window.location.href = 'https://www.youtube.com/watch?v=C1G5TRoSnNc';
+        } else {
+            window.location.href = 'https://deathsexbloodbath.bandcamp.com/';
+        }
+    }
 }
