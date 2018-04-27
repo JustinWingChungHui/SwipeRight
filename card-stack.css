@@ -91,25 +91,6 @@ body {
     color: #f7971e;
 }
 
-/* #viewport li.justinappropriate {
-    background-image: url("images/justinappropriate_card.jpg");
-}
-#viewport li.sadogasm {
-    background-image: url("images/sadogasm_card.jpg");
-}
-
-#viewport li.sorocide {
-    background-image: url("images/sorocide_card.jpg");
-}
-
-#viewport li.switchblade {
-    background-image: url("images/switchblade_card.jpg");
-}
-
-#viewport li.masokiss {
-    background-image: url("images/masokiss_card.jpg");
-} */
-
 #viewport li.in-deck:nth-child(3) {
     top: 2px; transform: translate(2px, 2px) rotate(0.4deg);
 }

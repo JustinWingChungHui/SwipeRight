@@ -54,6 +54,7 @@ var switchblade = [
 ];
 
 document.addEventListener('DOMContentLoaded', function () {
+
     randomize_cards()
 
     // Set up card stack
@@ -157,7 +158,7 @@ function get_stack_count() {
 
     var stack = document.getElementById("cardstack");
     for (var i =0; i < stack.children.length; i++) {
-        if (stack.children[i].classList.value.indexOf('in-deck') !== -1) {
+        if (stack.children[i].classList.toString().indexOf('in-deck') !== -1) {
             count++;
         }
     }
