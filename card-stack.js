@@ -104,6 +104,10 @@ document.addEventListener('DOMContentLoaded', function () {
         var audio = new Audio(get_random_item(swipe_left_audio));
         audio.play();
         audio.addEventListener("ended", check_stack_count);
+
+        if (iOS) {
+            check_stack_count();
+        }
     });
 
     // Card thrown out
@@ -113,7 +117,10 @@ document.addEventListener('DOMContentLoaded', function () {
         var audio = new Audio(get_random_item(swipe_right_audio));
         audio.play();
         audio.addEventListener("ended", check_stack_count);
-        
+
+        if (iOS) {
+            check_stack_count();
+        }
     });
 
     // Card being moved back to centre
