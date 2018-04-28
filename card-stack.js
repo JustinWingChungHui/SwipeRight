@@ -27,31 +27,46 @@ var swipe_left_audio = [
 //Pictures
 var justinappropriate = [
     'images/justinappropriate_card.jpg',
-    'images/justinappropriate_card2.jpg'
+    'images/justinappropriate_card2.jpg',
+    'images/justinappropriate_card3.jpg',
+    'images/justinappropriate_card4.jpg'
 ];
 
 var sadogasm = [
     'images/sadogasm_card.jpg',
     'images/sadogasm_card2.jpg',
     'images/sadogasm_card3.jpg',
-    'images/sadogasm_card4.jpg'
+    'images/sadogasm_card4.jpg',
+    'images/sadogasm_card5.jpg',
+    'images/sadogasm_card6.jpg',
+    'images/sadogasm_card7.jpg'
 ];
 
-var sorocide = [
-    'images/sorocide_card.jpg',
-    'images/sorocide_card2.jpg'
+var sororicide = [
+    'images/sororicide_card.jpg',
+    'images/sororicide_card2.jpg',
+    'images/sororicide_card3.jpg',
+    'images/sororicide_card4.jpg',
+    'images/sororicide_card5.jpg'
 ];
 
 var masokiss = [
     'images/masokiss_card.jpg',
-    'images/masokiss_card2.jpg'
+    'images/masokiss_card2.jpg',
+    'images/masokiss_card3.jpg',
+    'images/masokiss_card4.jpg'
 ];
 
 var switchblade = [
     'images/switchblade_card.jpg',
     'images/switchblade_card2.jpg',
-    'images/switchblade_card3.jpg'
+    'images/switchblade_card3.jpg',
+    'images/switchblade_card4.jpg',
+    'images/switchblade_card5.jpg',
+    'images/switchblade_card6.jpg',
+    'images/switchblade_card7.jpg'
 ];
+
 
 
 // Do we need to route iOS audio through touch events?
@@ -88,8 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var audio = new Audio(get_random_item(swipe_left_audio));
         audio.play();
-
-        check_stack_count();
+        audio.addEventListener("ended", check_stack_count);
     });
 
     // Card thrown out
@@ -98,8 +112,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var audio = new Audio(get_random_item(swipe_right_audio));
         audio.play();
-
-        check_stack_count();
+        audio.addEventListener("ended", check_stack_count);
+        
     });
 
     // Card being moved back to centre
@@ -123,6 +137,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         update_overlay(direction, e.target);
     });
+
+    document.getElementById('resetButton').addEventListener('click', function() {
+        location.reload();
+    });
 });
 
 // Randomizes the cards
@@ -131,7 +149,7 @@ function randomize_cards() {
     // Select background image randomly
     document.getElementById("justinappropriate").style.backgroundImage = 'url(' + get_random_item(justinappropriate) + ')';
     document.getElementById("sadogasm").style.backgroundImage = 'url(' + get_random_item(sadogasm) + ')';
-    document.getElementById("sorocide").style.backgroundImage = 'url(' + get_random_item(sorocide) + ')';
+    document.getElementById("sororicide").style.backgroundImage = 'url(' + get_random_item(sororicide) + ')';
     document.getElementById("masokiss").style.backgroundImage = 'url(' + get_random_item(masokiss) + ')';
     document.getElementById("switchblade").style.backgroundImage = 'url(' + get_random_item(switchblade) + ')';
 
@@ -182,13 +200,22 @@ function check_stack_count() {
         }
     }
 
+    // If stack is empty, then move to another website
     if (stack_count == 0) {
+
+        var destination;
+
         if (left_count == 5) {
-            window.location.href = 'https://www.youtube.com/watch?v=1cQh1ccqu8M';
+            // All left, booby prize Nickelback
+            destination = 'https://www.youtube.com/watch?v=1cQh1ccqu8M';
         } else if (right_count == 5) {
-            window.location.href = 'https://www.youtube.com/watch?v=C1G5TRoSnNc';
+            // All right, reward DSB video
+            destination = 'https://www.youtube.com/watch?v=C1G5TRoSnNc';
         } else {
-            window.location.href = 'https://deathsexbloodbath.bandcamp.com/';
+            // Bandcamp
+            destination = 'https://deathsexbloodbath.bandcamp.com/';
         }
+
+        window.location.href = destination;
     }
 }

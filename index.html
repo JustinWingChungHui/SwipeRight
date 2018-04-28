@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
 
-    <link rel="stylesheet" href="./card-stack.css">
+    <link rel="stylesheet" href="card-stack.css">
 
-    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 
     <!--https://stackoverflow.com/questions/4472891/how-can-i-disable-zoom-on-a-mobile-web-page-->
     <meta name='viewport' content='width=device-width, initial-scale=0.35, maximum-scale=0.35, user-scalable=0'/>
@@ -14,8 +14,23 @@
     <div id="logo">
         <img class="logoimg" src="images/logo.jpg"/> 
         with Deathsex Bloodbath
+
+        <div class="social_container">
+            <a href="https://www.facebook.com/deathsexbloodbath">
+                <img class="social_image" src="images/facebook.png"/> 
+            </a>
+            <a href="https://deathsexbloodbath.bandcamp.com/">
+                <img class="social_image" src="images/bandcamp.png"/> 
+            </a>
+            <a href="mailto:deathsexbloodbath@gmail.com">
+                <img class="social_image" src="images/email.png"/> 
+            </a>
+        </div>
     </div>
-    <div id="viewport">
+    
+    <div id="loading_overlay" class="loading"></div>
+
+    <div id="viewport">        
         <ul id="cardstack" class="stack">
             <li id="sadogasm" class="card">
                 <div class="swiperight">Let's Fuck!</div>
@@ -41,11 +56,11 @@
                     <p>This will sound better on top of Buckingham palace...</p>
                 </div>
             </li>
-            <li id="sorocide" class="card">
+            <li id="sororicide" class="card">
                 <div class="swiperight">Let's Fuck!</div>
                 <div class="swipeleft">Can Do Better</div>
                 <div class="cardinfo">
-                    <h2>Sorocide</h2>
+                    <h2>Sororicide</h2>
                     <p>I hate Dirty Fucking Men!</p>
                 </div>
             </li>
@@ -61,6 +76,7 @@
     </div>
     <div id="source">
         <h3>Swipe left or right for your Deathsex Dream tonight!</h3>
+        <button id="resetButton" class="resetButton">Reset</button>
     </div>
     <script src="./bundle.js"></script>
     <script src="./card-stack.js"></script>
