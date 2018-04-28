@@ -25,14 +25,14 @@ gulp.task('publish',function() {
   };
 
   var cfSettings = {
-    distribution: 'tbc', // Cloudfront distribution ID 
+    distribution: 'E30DVB319SPU69', // Cloudfront distribution ID 
     wait: false,                     // Whether to wait until invalidation is completed (default: false) 
     indexRootPath: true             // Invalidate index.html root paths (`foo/index.html` and `foo/`) (default: false) 
   }
 
   return gulp.src(['**/*', '!./node_modules/**'])
     .pipe(publisher.publish(headers))
-    //.pipe(cloudfront(cfSettings))
+    .pipe(cloudfront(cfSettings))
     .pipe(publisher.cache())
     .pipe(awspublish.reporter());
 });
