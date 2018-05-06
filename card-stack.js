@@ -24,6 +24,8 @@ var swipe_left_audio = [
     'audio/heythisisnt.mp3'
 ];
 
+var iOS_audio =[];
+
 //Pictures
 var justinappropriate = [
     'images/justinappropriate_card.jpg',
@@ -68,22 +70,9 @@ var switchblade = [
 ];
 
 
-
-// Do we need to route iOS audio through touch events?
-// https://stackoverflow.com/questions/12517000/no-sound-on-ios-6-web-audio-api#12569290
-var sound_on_iOS_enabled = false;
-var iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
-document.addEventListener("touchend", function(){
-    if (!sound_on_iOS_enabled && iOS) {
-        var audio = new Audio('audio/phonepickup.mp3');
-        audio.play();
-
-        sound_on_iOS_enabled = true;
-    }
-});
-
-
 document.addEventListener('DOMContentLoaded', function () {
+
+    var iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 
     randomize_cards()
 
@@ -148,6 +137,30 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('resetButton').addEventListener('click', function() {
         location.reload();
     });
+
+    // Add special touch events for iPhone because drage end event doesn't make sound
+    // https://stackoverflow.com/questions/12517000/no-sound-on-ios-6-web-audio-api#12569290
+    if (iOS) {
+
+        // Build library of iOS audio
+        iOS_audio = swipe_right_audio.concat(swipe_left_audio);
+
+        // Show iOS messages
+        var iOSMessages = document.getElementsByClassName('iOSOnly');
+        for(var i = 0; i < iOSMessages.length; i++){
+            iOSMessages[i].style.display = 'block';
+        }
+
+        var cards = document.getElementsByClassName("card");
+
+        for(var i = 0; i < cards.length; i++){
+            cards[i].addEventListener("touchend",  function(){
+                var audio = new Audio(get_random_item(iOS_audio));
+                audio.play();
+            });
+        }
+    }
+
 });
 
 // Randomizes the cards
